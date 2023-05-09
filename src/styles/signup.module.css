@@ -1,0 +1,36 @@
+.form {
+    display: flex;
+    flex-direction: column;
+ }
+ 
+ .formcontainer {
+    border: 1px solid rgb(0, 30, 255);
+    border-top: 3px solid rgb(0, 30, 255);
+    border-radius: 20px;
+    width: 700px;
+    height: auto;
+    margin-left: 400px;
+ }
+ 
+ .formcontainer>h1 {
+    text-align: center;
+ }
+ 
+ .input {
+     width: 500px;
+     height: 50px;
+     border: 0px;
+     border-bottom: 2px solid rgb(0, 30, 255);
+     margin-bottom: 50px;
+     margin-left: 100px;
+ }
+ 
+ .btn {
+     width: 100px;
+     height: 50px;
+     margin-left: 300px;
+     margin-bottom: 5px;
+     border: 0px;
+     background-color: rgba(0, 30, 255, 0.711);
+     color: white;
+ }

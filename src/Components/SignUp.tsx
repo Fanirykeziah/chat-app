@@ -1,12 +1,15 @@
 import { useRouter } from "next/router";
 import { useState } from "react"
+import styles from '@/styles/signup.module.css'
 
 export default function SignUp() {
   const router = useRouter();
   const[username , setUsername] = useState("");
   const[password , setPassword] = useState("");
   
-  const handleSubmit = () => {
+  const handleSubmit = (event : React.FormEvent) => {
+      event.preventDefault(); 
+
       localStorage.setItem('username',username); 
       localStorage.setItem('password',password);
 
@@ -15,23 +18,24 @@ export default function SignUp() {
 
     return ( 
         <>
-           <div className="form-container">
+           <div className={styles.formcontainer}>
               <h1>Sign Up</h1>
-              <div className="form">
+              <div className={styles.form}>
                 <input type="text" 
                 placeholder="Username" 
-                className="input" 
+                className={styles.input} 
                 value={username} 
                 onChange={(e) => setUsername(e.target.value)}/>
 
                 <input type="password" 
                 placeholder="Password" 
-                className="input" 
-                value={password} onChange={(e) => setPassword(e.target.value)}/>
+                className={styles.input} 
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}/>
 
                 <input type="button" 
                 value="Save" 
-                className="btn" 
+                className={styles.btn} 
                 onClick={handleSubmit}/>
               </div>
            </div>

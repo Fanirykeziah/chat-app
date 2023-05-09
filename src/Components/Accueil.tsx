@@ -18,7 +18,7 @@ export default function Accueil() {
            <div className="container">
               <div className="global"></div>
               <div className="chat">
-                <h1>Hello , you're authenticated</h1>
+                <h1>Welcome</h1>
               </div>
            </div>
         </>
