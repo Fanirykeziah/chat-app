@@ -1,14 +1,10 @@
-import Accueil from '@/Components/Accueil'
-import { Inter } from 'next/font/google'
-
-const inter = Inter({ subsets: ['latin'] })
+import Accueil from '@/Components/index'
+import HeaderTitle from '@/ui/Header/Header'
 
 export default function Home() {
   return (
-    <>
-    <div>
+    <HeaderTitle title='Home'>
       <Accueil/>
-    </div>
-    </>
+    </HeaderTitle>
   )
 }
