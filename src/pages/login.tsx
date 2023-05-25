@@ -1,7 +1,7 @@
-import LoginPage from "@/Components/Auth/Login"
+import LoginPage from "@/Components/Auth/Login";
 import HeaderTitle from "@/ui/Header/Header"
 
-const Login = () => {
+const LoginForm = () => {
     return (
         <HeaderTitle title="Log in">
             <LoginPage/>
@@ -9,4 +9,4 @@ const Login = () => {
     )
 }
 
-export default Login; 
+export default LoginForm; 
