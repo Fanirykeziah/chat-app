@@ -1,7 +1,11 @@
-import Channel from "@/Components/Channel/Channel";
+import Channel from "@/Components/LandingPage";
+import NavbarToggle from "react-bootstrap/esm/NavbarToggle";
 
 export default function test() {
     return (
+        <>
         <Channel/>
+        </>
+        
     )
 }
