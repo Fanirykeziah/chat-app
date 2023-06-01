@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { channelsResponse } from "../utils/dataResponse/channelById";
 import { useCookies } from "react-cookie";
 
-const ChannelId = (id : number) => {
-  const [dataList, setDataList] = useState<channelsResponse[] | undefined>(undefined);
+const ChannelId = () => {
+  const [dataList, setDataList] = useState<any>(null);
   const[cookies] = useCookies(['token']); 
   const token = cookies.token;
+  const[cookie] = useCookies(['id']);
+  const id = cookie.id;
 
   useEffect(() => {
-    fetchData();
+    getChannelById();
   }, []);
 
-  async function fetchData() {
+  async function getChannelById() {
     try {
       const config = {
         headers: {
@@ -21,7 +22,9 @@ const ChannelId = (id : number) => {
       };
   
       const response = await axios.get(`http://localhost:8080/channel/${id}`, config);
-         setDataList(response.data);
+         console.log(response.data.channel);
+              
+         setDataList(response.data.channel);
       
     } catch (error) {
       console.error(error);
@@ -30,15 +33,11 @@ const ChannelId = (id : number) => {
 
   return (
     <div>
-      {dataList && dataList.length > 0 ? (
-        dataList.map((data: channelsResponse, index: number) => (
-          <div key={index}>
-            <h1>{data.name}</h1>
-            <p>{data.type}</p>
+      {dataList && (
+          <div>
+            <h1>{dataList.name}</h1>
+            <p>{dataList.type}</p>
           </div>
-        ))
-      ) : (
-        <p></p>
       )}
     </div>
   );
