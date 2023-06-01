@@ -39,9 +39,8 @@ type FormData = yup.InferType<typeof schema>;
 
   return ( 
     <>
-      <div className={styles.formcontainer}>
-        <h1>Sign Up</h1>
-        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+      <h1 className={styles.h1}>Sign Up</h1>
+      <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
           <input type="text" 
           placeholder="Name" 
           className={styles.input} 
@@ -66,9 +65,9 @@ type FormData = yup.InferType<typeof schema>;
           {...register("confirmPassword",{required: true})}/>
           <p>{errors.confirmPassword?.message}</p>
 
-          <button type="submit">Sign Up</button>
-        </form>
-      </div>
+          <button className={styles.btn} type="submit">Sign Up</button>
+      </form>
+      
     </>
     )
 }

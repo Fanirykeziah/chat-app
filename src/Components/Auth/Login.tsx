@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useCookies } from 'react-cookie';
 import { BASE_URL } from "../utils/baseUrl";
+import styles from '@/styles/login.module.css'
 
 function LoginPage() {
     const [email , setEmail] = useState(''); 
@@ -11,7 +12,6 @@ function LoginPage() {
     const [cookies, setCookie] = useCookies(['token']);
     const router = useRouter();
 
-
   const handleLogin =async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -19,8 +19,7 @@ function LoginPage() {
       const response = await axios.post(BASE_URL+'users/login', { email, password });        
       const token = response.data.user.token; 
       const options = {
-        path: '/',
-        expires: new Date(Date.now() + 24 * 60 * 60 * 1000) // expires in 24 hours
+        path: '/'
       };  
       setCookie("token", token, options); 
 
@@ -36,19 +35,25 @@ function LoginPage() {
 
   return (
     <>
-      <form onSubmit={handleLogin}>
-        <input type="email" 
+      <h1 className={styles.h1}>Log In</h1>
+      <form onSubmit={handleLogin} className={styles.formcontainer}>  
+        <input className={styles.input}
+        type="email" 
         placeholder="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}/>
-        <input type="password"
+        <input className={styles.input}
+        type="password"
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}/>
-        <button type="submit">Sign in</button> 
-        {error && <div>{error}</div>}
+        <button className={styles.submit} type="submit">Sign in</button> 
+        {error && <h5 className={styles.h5}>{error}</h5>}
       </form>
-      <p>If you don't have account,<button onClick={() => (router.push("/sign-up"))}>Sign-up</button>, please!</p>
+      <p className={styles.p}>If you don't have account,
+        <button className={styles.signup} onClick={() => (router.push("/sign-up"))}>Sign-up</button>
+        , please!
+      </p>
     </>
     )
 }
