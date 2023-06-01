@@ -9,13 +9,17 @@ import { ChannelFormProps } from '../utils/dataResponse/channelFormProps';
 import { option } from '../utils/dataResponse/options';
 import { useCookies } from 'react-cookie';
 import { BASE_URL } from '../utils/baseUrl';
+import { useRouter } from "next/router";
 
-const ChannelForm: React.FC<ChannelFormProps> = ({ channelId }) => {
+const ChannelForm: React.FC<ChannelFormProps> = () => {
   const animatedComponents = makeAnimated();
   const[channelbyId , setChannelById] = useState<any>(null);
   const[options , setOptions] = useState<option[]>();
   const[cookies] = useCookies(['token']);
   const token = cookies.token;
+  const[cookie] = useCookies(['id'])
+  const id = cookie.id;
+  const route = useRouter();
  
   const schema = yup.object({
     members: yup.array().of(yup.number()).required()
@@ -36,7 +40,7 @@ resolver: yupResolver(schema)
           },
         };
     
-        const response = await axios.get(`http://localhost:8080/channel/${channelId}`, config);
+        const response = await axios.get(`http://localhost:8080/channel/${id}`, config);
            setChannelById(response.data.channel);
       } catch (error) {
         console.error(error);
@@ -44,7 +48,7 @@ resolver: yupResolver(schema)
     }
     
   getChannelById()
-  }, [channelId]);
+  }, [id]);
 
   useEffect(() => {
     async function getUsers() {
@@ -69,7 +73,7 @@ resolver: yupResolver(schema)
     }
     
   getUsers()
-  }, [channelId]);
+  }, [id]);
   
   const onSubmit = async (data : FormData) => {
     try {
@@ -78,7 +82,7 @@ resolver: yupResolver(schema)
           Authorization: `Bearer ${token}`,
          },
        };
-       const response = await axios.post(`http://localhost:8080/channels/${channelId}/members`, data, config)  
+       const response = await axios.post(`http://localhost:8080/channels/${id}/members`, data, config)  
       } catch (error) {
        console.error(error)
       }
@@ -100,7 +104,7 @@ resolver: yupResolver(schema)
           isMulti
           options={options}/>
 
-          <button type='submit'>Mettre à jour</button>
+          <button type='submit' onClick={() => route.push(`/channel/${id}`)}>Mettre à jour</button>
         </form>
     </div>
   );
