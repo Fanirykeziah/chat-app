@@ -12,7 +12,7 @@ export default function Home() {
     if (token) {
       router.push('/channel');
     } else {
-      router.push('/auth');
+      router.push('/login');
     }
   }, [cookies, router]);
 

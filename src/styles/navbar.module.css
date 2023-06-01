@@ -1,0 +1,11 @@
+.nav {
+    width: auto;
+    height: 40px;
+    border-bottom: 2px solid rgb(240, 240, 236);
+    background-color:rgb(240, 240, 236) ;
+}
+
+.profile {
+    margin-left: 90%;
+    margin-top: 10px;
+}
