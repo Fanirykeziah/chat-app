@@ -68,7 +68,7 @@ const onSubmit = async (data : FormData) => {
   catch (error) {
       console.error(error)
      }
-  }
+}
 
     return (
       <>
