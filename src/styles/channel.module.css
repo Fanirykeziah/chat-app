@@ -1,0 +1,56 @@
+.channel {
+    display: flex;
+    flex-direction: row;
+}
+
+.create_channel_container{
+    margin: auto;
+}
+
+.input {
+    width: 700px;
+    height: 40px;
+    margin-top: 10px;
+}
+
+.submit{
+    border: 0px;
+    margin-top: 20px;
+    width: 100px;
+    height: 40px;
+    background-color: rgb(66, 194, 7);
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.chat{
+    margin-top: 100px;
+    margin-left: 100px;
+}
+
+.sendMessage {
+    border: 0px;
+    background-color: rgb(66, 133, 248);
+    color: white;
+    font-size: medium;
+    font-weight: bold;
+    height: 40px;
+    width: 100px;
+    margin-left: 5px;
+}
+
+.name {
+    font-size: 30px;
+    font-weight: bolder;
+}
+
+.send_channel_message {
+    display: flex;
+    flex-direction: column;
+}
+
+.channel_edit_form{
+    margin-top: 100px;
+    margin-left: 200px;
+}
