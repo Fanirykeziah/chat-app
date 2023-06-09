@@ -1,0 +1,21 @@
+.input{
+    width: 500px;
+    height: 40px;
+    margin-top: 10px;
+}
+
+.submit{
+    border: 0px;
+    margin-top: 20px;
+    width: 100px;
+    height: 40px;
+    background-color: rgb(66, 194, 7);
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.container{
+    margin: auto;
+}
+
