@@ -27,7 +27,7 @@ function LoginPage() {
       setPassword('');
       setError('');
 
-    router.push('/channel');
+    router.push('/profile');
     } catch (error) {
       setError('Invalid identifiers');
     }
@@ -47,7 +47,7 @@ function LoginPage() {
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}/>
-        <button className={styles.submit} type="submit">Sign in</button> 
+        <button className={styles.save} type="submit">Sign in</button> 
         {error && <h5 className={styles.h5}>{error}</h5>}
       </form>
       <p className={styles.p}>If you don't have account,

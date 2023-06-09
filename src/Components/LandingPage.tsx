@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import { channelsResponse } from "./utils/dataResponse/channelById";
 import { useCookies } from "react-cookie";
 import { BASE_URL } from "./utils/baseUrl";
-import Nav from "./Navbar/Navbar";
 import styles from '@/styles/landing.module.css'
 import  {UsersResponse}  from "./utils/dataResponse/UsersIdResponse";
 
@@ -22,7 +21,7 @@ const Channel = () => {
 
   useEffect(() => {
     getChannels();
-  }, []);
+  }, [dataList]);
 
   async function getChannels() {
     try {
@@ -47,14 +46,16 @@ const Channel = () => {
   
   const clickName = (id : number) => {
     setCookie("id" , id , options )
-      router.push(`channel/${id}`)
+    const currentChannelId = router.query.id;
+    if (router.pathname !== '/channel/[id]' || String(currentChannelId) !== String(id)) {
+      router.push('/channel/[id]', `/channel/${id}`);
+    }
   }
 
   const clickUserName = (userId : number) => {
     setCook('userId' , userId , options )
-      router.push(`message`)
+      router.push('/message/[userId]', `/message/${userId}`)
   }
-  
   
 useEffect(() => {
   async function getAllUsers() {
@@ -76,7 +77,6 @@ useEffect(() => {
 
   return (
     <div>
-      <Nav/>
       <div className={styles.createChannel}>
         <button className={styles.new} onClick={() => (router.push("/channel/create"))}>Add new channel</button>
       </div>

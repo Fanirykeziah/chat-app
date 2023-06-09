@@ -1,4 +1,8 @@
 export type messageResponse = {
     channelId: number,
-    content: string
+    content: string,
+    createdAt: EpochTimeStamp,
+    sender: {
+        name: string
+    }
 }

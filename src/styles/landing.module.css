@@ -30,6 +30,6 @@
 
 .channelList{
     border-top: 1px solid rgb(240, 240, 236);
-    width: auto;
-    height: 40px;
+    width: 300px;
+    height: auto;
 }

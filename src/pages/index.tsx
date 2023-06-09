@@ -1,20 +1,17 @@
-import { useRouter } from 'next/router'
-import { useEffect } from 'react';
-import { useCookies } from 'react-cookie';
+import { useRouter } from "next/router"
+import { useEffect } from "react"
 
-export default function Home() {
-  const [cookies] = useCookies(['token']);
-  const router = useRouter();
+export default function Page() {
+    const router = useRouter();
 
-  useEffect(() => {
-    const token = cookies.token;
-
-    if (token) {
-      router.push('/channel');
-    } else {
-      router.push('/login');
-    }
-  }, [cookies, router]);
-
-  return <div>Redirection en cours...</div>;
+    useEffect(() => {
+        router.push('/login');
+})
+    return (
+        <>
+           <div>
+              <p>redirection en cours</p>
+           </div>
+        </>
+    )
 }

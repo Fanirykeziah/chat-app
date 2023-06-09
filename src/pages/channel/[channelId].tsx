@@ -1,12 +1,19 @@
-import ChannelId from "@/Components/Channel/ChannelId";
 import ChatChannelId from "@/Components/Chat/ChannelChat";
-import { useCookies } from "react-cookie";
+import Channel from "@/Components/LandingPage";
+import Nav from "@/Components/Navbar/Navbar";
+import styles from '@/styles/channel.module.css'
 
 export default function getChannelId() {
 
     return (
-        <>
-          <ChatChannelId/>
-        </>
+      <>
+        <div className={styles.channel_chat_container}>
+          <Nav/>
+          <div className={styles.channel}>
+              <Channel/>
+              <ChatChannelId/>
+          </div>
+        </div>    
+      </>
     )
 }

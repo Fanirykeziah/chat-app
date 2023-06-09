@@ -5,13 +5,13 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import makeAnimated from 'react-select/animated';
-import { ChannelFormProps } from '../utils/dataResponse/channelFormProps';
 import { option } from '../utils/dataResponse/options';
 import { useCookies } from 'react-cookie';
 import { BASE_URL } from '../utils/baseUrl';
 import { useRouter } from "next/router";
+import styles from '@/styles/channel.module.css'
 
-const ChannelForm: React.FC<ChannelFormProps> = () => {
+const ChannelForm = () => {
   const animatedComponents = makeAnimated();
   const[channelbyId , setChannelById] = useState<any>(null);
   const[options , setOptions] = useState<option[]>();
@@ -89,10 +89,10 @@ resolver: yupResolver(schema)
    }
 
   return (
-    <div>
-       <form onSubmit={handleSubmit(onSubmit)}>
+    <div className={styles.channel_edit_form}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           {channelbyId &&  
-           (<input type="text" value={channelbyId.name}/>)}
+           (<input type="text" className={styles.input} value={channelbyId.name}/>)}
 
           <Select
            onChange={(e) => {
@@ -102,9 +102,10 @@ resolver: yupResolver(schema)
           closeMenuOnSelect={true}
           components={animatedComponents}
           isMulti
-          options={options}/>
+          options={options}
+          className={styles.input}/>
 
-          <button type='submit' onClick={() => route.push(`/channel/${id}`)}>Mettre à jour</button>
+          <button type='submit' className={styles.submit} onClick={() => route.push(`/channel/${id}`)}>Update</button>
         </form>
     </div>
   );

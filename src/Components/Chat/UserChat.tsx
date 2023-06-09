@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import axios from "axios";
 import { BASE_URL } from "../utils/baseUrl";
+import styles from '@/styles/channel.module.css';
 
 export default function ChatUserById() {
     const[cookies] = useCookies(['token']); 
@@ -22,7 +23,7 @@ type FormData = {
    recipientId: number,
    content: string
 }
-  const { handleSubmit , register , formState: { errors } } = useForm<FormData>({
+  const { handleSubmit , register , formState: { errors } , reset} = useForm<FormData>({
     resolver: yupResolver(schema)
   });
 
@@ -35,14 +36,13 @@ type FormData = {
             }
           }
           const response = await axios.get(`http://localhost:8080/messages/${id}`, config) ; 
-            console.log(response);
            setMessages(response.data.messages);           
         } catch (error) {
             console.error(error); 
         }
     }
     getChatByUser();
-}, [])
+}, [messages])
 
 const sendMessage =  async (data : FormData) => {
     data.recipientId=id
@@ -53,15 +53,15 @@ const sendMessage =  async (data : FormData) => {
               }
             }
          const response = await axios.post(BASE_URL+'message', data, config)
-           console.log
-           (response.data.message);
+           console.log(response.data.message);
+           reset();
       } catch (error) {
           console.error(error);
       } 
   }
 
   return(
-    <>
+    <div className={styles.send_channel_message}>
        <div className="messages">
              {messages && messages.length > 0 ? 
                 (messages.map((data : messageResponse , index: number) => (
@@ -72,13 +72,13 @@ const sendMessage =  async (data : FormData) => {
              } 
           </div>
           <div>
-          <form onSubmit={handleSubmit(sendMessage)}>
-              <input type="text"
+          <form onSubmit={handleSubmit(sendMessage)} className={styles.chat}>
+              <input type="text" className={styles.input}
               {...register("content",{required: true})}
               />
-              <button type="submit">send</button>
+              <button type="submit" className={styles.sendMessage}>send</button>
           </form>
           </div>
-    </>
+    </div>
   )
 }

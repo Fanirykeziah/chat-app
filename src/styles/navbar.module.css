@@ -5,7 +5,10 @@
     background-color:rgb(240, 240, 236) ;
 }
 
-.profile {
-    margin-left: 90%;
-    margin-top: 10px;
+.image {
+    width: 40px;
+    height: 40px;
+    margin-left: 93%;
+    border-radius: 60%;
+    margin-top:1px ;
 }

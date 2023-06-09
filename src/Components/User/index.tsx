@@ -5,21 +5,20 @@ import { BASE_URL } from "../utils/baseUrl";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/router";
+import styles from '@/styles/profile.module.css'
+import Image from "next/image";
+import photo from "../assets/pdpdef.webp"
 
 export default function Users() {
   const [cookies] = useCookies(['token']);
   const token = cookies.token;
-  const[dataList , setDataList] = useState<any>(undefined); 
-  const[bio , setBio] = useState(''); 
-  const[showInput , setShowInput] = useState(false);
-  const router = useRouter();
-
+  const[currentUser , setCurrentUser] = useState<any>(undefined); 
+  const[showUserForm , setShowUserForm] = useState(false);
   const schema = yup.object({
     name: yup.string().max(30),
     oldPassword: yup.string(), 
-    newPassword: yup.string(),
-    confirmPassword: yup.string(),
+    password: yup.string(),
+    confirmPassword: yup.string().oneOf([yup.ref('password')], 'Passwords must match'),
     bio: yup.string()
     });  
 
@@ -31,7 +30,7 @@ export default function Users() {
 
   useEffect(() => {
     getCurrentUser();
-  }, []);
+  }, [currentUser]);
 
   async function getCurrentUser() {
     try {
@@ -41,9 +40,8 @@ export default function Users() {
         },
       };
       const response = await axios.get(BASE_URL+'user', config);
-      console.log(response.data.user);
       
-       setDataList(response.data.user);
+       setCurrentUser(response.data.user);
          
     } catch (error) {
       console.error(error);
@@ -58,51 +56,48 @@ export default function Users() {
         },
       };
       await axios.put(BASE_URL+'user',data , config)
-      setShowInput(false);
+      setShowUserForm(false);
       
     } catch (error) {
       console.error(error);
     }
   }
 
-  const handleAddBio = () => {
-     setShowInput(true);
+  const handleChangeUser = () => {
+     setShowUserForm(true);
   }
 
     return(
     <>
-    <div>
-      {showInput ? (
-        dataList && (
-          <form onSubmit={handleSubmit(onUpdate)}>
-          <input type="text" defaultValue={dataList.name} {...register('name')}/>
-          <p>{errors.name?.message}</p>
-          <input type="text" placeholder="old password"  {...register('oldPassword')}/>
-          <p>{errors.oldPassword?.message}</p>
-          <input type="text" placeholder="new password"  {...register('newPassword')}/>
-          <p>{errors.newPassword?.message}</p>
-          <input type="text" placeholder="confirm password" {...register('confirmPassword')}/>
-          <p>{errors.confirmPassword?.message}</p>
-          <input type="text" defaultValue={dataList.bio} {...register('bio')}/>
-          <p>{errors.bio?.message}</p>
-          <button type="submit">Update</button>
-        </form>
-        )
-        
-      ) : (
-         dataList && (
+    <div className={styles.profile}>
+      {showUserForm ? (
+        currentUser && (
+          <div  className={styles.updateContainer}>
+            <form onSubmit={handleSubmit(onUpdate)}>
+              <input type="text" defaultValue={currentUser.name} {...register('name')} className={styles.input}/>
+                <p>{errors.name?.message}</p>
+              <input type="password" placeholder="old password"  {...register('oldPassword')} className={styles.input}/>
+                <p>{errors.oldPassword?.message}</p>
+              <input type="password" placeholder="new password"  {...register('password')} className={styles.input}/>
+                <p>{errors.password?.message}</p>
+              <input type="password" placeholder="confirm password" {...register('confirmPassword')} className={styles.input}/>
+                <p>{errors.confirmPassword?.message}</p>
+              <input type="text" defaultValue="bio" {...register('bio')} className={styles.input}/>
+                <p>{errors.bio?.message}</p>
+              <button type="submit" className={styles.saveButton}>Save</button>
+            </form>
+          </div>
+        )) : (
+         currentUser && (
           <div>
-             <h1>{dataList.name}</h1>
-             <p>{dataList.email}</p>
-             <p>{dataList.bio}</p>
-             <button onClick={handleAddBio}>Update profil</button>
-        </div>
+             <Image className={styles.photo} src={photo} alt="user's pic"/>
+             <h1>{currentUser.name}</h1>
+             <p>{currentUser.bio}</p>
+             <button onClick={handleChangeUser} className={styles.updateButton}>Update profil</button>
+          </div>
         ) 
       )}
     </div>
-    
-    
-        <p></p>
     </>
     )
 }
